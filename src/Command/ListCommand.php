@@ -1,12 +1,12 @@
 <?php declare(strict_types = 1);
 
-namespace Contributte\Scheduler\Command;
+namespace Contributte\Executor\Command;
 
-use Contributte\Scheduler\CallbackJob;
-use Contributte\Scheduler\Exceptions\LogicalException;
-use Contributte\Scheduler\ExpressionJob;
-use Contributte\Scheduler\IJob;
-use Contributte\Scheduler\IScheduler;
+use Contributte\Executor\CallbackJob;
+use Contributte\Executor\Exceptions\LogicalException;
+use Contributte\Executor\ExpressionJob;
+use Contributte\Executor\IExecutor;
+use Contributte\Executor\IJob;
 use Cron\CronExpression;
 use Nette\Utils\DateTime;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -16,24 +16,25 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
-	name: 'scheduler:list',
-	description: 'List all scheduler jobs'
+	name: 'executor:list',
+	aliases: ['scheduler:list'],
+	description: 'List all executor jobs'
 )]
 class ListCommand extends Command
 {
 
-	private IScheduler $scheduler;
+	private IExecutor $executor;
 
-	public function __construct(IScheduler $scheduler)
+	public function __construct(IExecutor $executor)
 	{
 		parent::__construct();
 
-		$this->scheduler = $scheduler;
+		$this->executor = $executor;
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
-		$jobs = $this->scheduler->getAll();
+		$jobs = $this->executor->getAll();
 		$table = new Table($output);
 		$table->setHeaders(['Key', 'Type', 'Is due', 'Cron', 'Callback']);
 		$dateTime = new DateTime();

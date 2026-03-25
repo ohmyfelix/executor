@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Contributte\Scheduler\Helpers;
+namespace Contributte\Executor\Helpers;
 
 use Throwable;
 use Tracy\Debugger as TracyDebugger;

@@ -2,7 +2,7 @@
 
 namespace Tests\Fixtures;
 
-use Contributte\Scheduler\IJob;
+use Contributte\Executor\IJob;
 use DateTime;
 
 final class CustomJob implements IJob

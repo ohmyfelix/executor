@@ -1,15 +1,16 @@
 {
-  "name": "contributte/scheduler",
-  "description": "PHP job scheduler (cron) with locking",
+  "name": "contributte/executor",
+  "description": "PHP job executor (cron) with locking",
   "keywords": [
     "nette",
     "cron",
     "contributte",
+    "executor",
     "scheduler"
   ],
   "license": "MIT",
   "type": "library",
-  "homepage": "https://github.com/contributte/scheduler",
+  "homepage": "https://github.com/contributte/executor",
   "authors": [
     {
       "name": "Milan Felix Šulc",
@@ -35,7 +36,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Contributte\\Scheduler\\": "src/"
+      "Contributte\\Executor\\": "src/",
+      "Contributte\\Scheduler\\": "compat/"
     }
   },
   "autoload-dev": {

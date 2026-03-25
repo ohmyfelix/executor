@@ -1,13 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace Contributte\Scheduler;
+namespace Contributte\Executor;
 
-use Contributte\Scheduler\Exceptions\RuntimeException;
-use Contributte\Scheduler\Helpers\Debugger;
+use Contributte\Executor\Exceptions\RuntimeException;
+use Contributte\Executor\Helpers\Debugger;
 use DateTime;
 use Throwable;
 
-class LockingScheduler extends Scheduler
+class LockingExecutor extends Executor
 {
 
 	protected string $path;

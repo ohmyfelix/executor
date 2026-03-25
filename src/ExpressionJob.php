@@ -1,11 +1,12 @@
 <?php declare(strict_types = 1);
 
-namespace Contributte\Scheduler;
+namespace Contributte\Executor;
 
+use Contributte\Scheduler\IJob as LegacyJob;
 use Cron\CronExpression;
 use DateTime;
 
-abstract class ExpressionJob implements IJob
+abstract class ExpressionJob implements IJob, LegacyJob
 {
 
 	protected CronExpression $expression;

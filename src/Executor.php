@@ -1,12 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace Contributte\Scheduler;
+namespace Contributte\Executor;
 
-use Contributte\Scheduler\Helpers\Debugger;
+use Contributte\Executor\Helpers\Debugger;
+use Contributte\Scheduler\IScheduler;
 use DateTime;
 use Throwable;
 
-class Scheduler implements IScheduler
+class Executor implements IExecutor, IScheduler
 {
 
 	/** @var IJob[] */
