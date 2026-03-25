@@ -17,7 +17,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
 	name: 'executor:list',
-	aliases: ['scheduler:list'],
 	description: 'List all executor jobs'
 )]
 class ListCommand extends Command

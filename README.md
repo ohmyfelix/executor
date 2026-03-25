@@ -30,8 +30,6 @@ composer require contributte/executor
 
 For details on how to use this package, check out our [documentation](.docs).
 
-The previous `Contributte\Scheduler` namespace and `scheduler:*` command names remain available as deprecated compatibility aliases for the transition release.
-
 ## Versions
 
 | State       | Version | Branch   | Nette | PHP     |

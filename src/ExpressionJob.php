@@ -2,11 +2,10 @@
 
 namespace Contributte\Executor;
 
-use Contributte\Scheduler\IJob as LegacyJob;
 use Cron\CronExpression;
 use DateTime;
 
-abstract class ExpressionJob implements IJob, LegacyJob
+abstract class ExpressionJob implements IJob
 {
 
 	protected CronExpression $expression;

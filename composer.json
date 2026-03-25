@@ -5,8 +5,7 @@
     "nette",
     "cron",
     "contributte",
-    "executor",
-    "scheduler"
+    "executor"
   ],
   "license": "MIT",
   "type": "library",
@@ -36,8 +35,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Contributte\\Executor\\": "src/",
-      "Contributte\\Scheduler\\": "compat/"
+      "Contributte\\Executor\\": "src/"
     }
   },
   "autoload-dev": {

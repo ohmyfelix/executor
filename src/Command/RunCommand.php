@@ -10,7 +10,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
 	name: 'executor:run',
-	aliases: ['scheduler:run'],
 	description: 'Run executor jobs'
 )]
 class RunCommand extends Command

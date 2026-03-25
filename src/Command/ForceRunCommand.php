@@ -11,7 +11,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
 	name: 'executor:force-run',
-	aliases: ['scheduler:force-run'],
 	description: 'Force run selected executor job'
 )]
 class ForceRunCommand extends Command

@@ -4,7 +4,6 @@ namespace Tests\Cases\DI;
 
 use Contributte\Executor\DI\ExecutorExtension;
 use Contributte\Executor\IExecutor;
-use Contributte\Scheduler\IScheduler as LegacyScheduler;
 use Contributte\Tester\Toolkit;
 use Contributte\Tester\Utils\ContainerBuilder;
 use Contributte\Tester\Utils\Neonkit;
@@ -35,10 +34,7 @@ Toolkit::test(function (): void {
 		})->build();
 
 	$executor = $container->getByType(IExecutor::class);
-	$legacyExecutor = $container->getByType(LegacyScheduler::class);
-
 	Assert::type(IExecutor::class, $executor);
-	Assert::type(LegacyScheduler::class, $legacyExecutor);
 	Assert::count(4, $executor->getAll());
 });
 

@@ -9,7 +9,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
 	name: 'executor:help',
-	aliases: ['scheduler:help'],
 	description: 'Print cron syntax'
 )]
 class HelpCommand extends Command

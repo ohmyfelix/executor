@@ -8,6 +8,7 @@ use Contributte\Executor\Command\HelpCommand;
 use Contributte\Executor\Command\ListCommand;
 use Contributte\Executor\Command\RunCommand;
 use Contributte\Executor\Executor;
+use Contributte\Executor\IExecutor;
 use Contributte\Executor\LockingExecutor;
 use InvalidArgumentException;
 use Nette\DI\CompilerExtension;
@@ -37,32 +38,26 @@ class ExecutorExtension extends CompilerExtension
 	{
 		$builder = $this->getContainerBuilder();
 		$config = $this->config;
-		$executorServiceName = $this->prefix($this->getPrimaryServiceName());
 
-		$executorDefinition = $builder->addDefinition($executorServiceName)
-			->setType($this->getExecutorServiceType());
+		$executorDefinition = $builder->addDefinition($this->prefix('executor'))
+			->setType(IExecutor::class);
 		if ($config->path !== null) {
-			$executorDefinition->setFactory($this->getLockingExecutorClass(), [$config->path]);
+			$executorDefinition->setFactory(LockingExecutor::class, [$config->path]);
 		} else {
-			$executorDefinition->setFactory($this->getExecutorClass());
-		}
-
-		$secondaryServiceName = $this->getSecondaryServiceName();
-		if ($secondaryServiceName !== null) {
-			$builder->addAlias($this->prefix($secondaryServiceName), $executorServiceName);
+			$executorDefinition->setFactory(Executor::class);
 		}
 
 		$builder->addDefinition($this->prefix('runCommand'))
-			->setFactory($this->getRunCommandClass())
+			->setFactory(RunCommand::class)
 			->setAutowired(false);
 		$builder->addDefinition($this->prefix('forceRunCommand'))
-			->setFactory($this->getForceRunCommandClass())
+			->setFactory(ForceRunCommand::class)
 			->setAutowired(false);
 		$builder->addDefinition($this->prefix('listCommand'))
-			->setFactory($this->getListCommandClass())
+			->setFactory(ListCommand::class)
 			->setAutowired(false);
 		$builder->addDefinition($this->prefix('helpCommand'))
-			->setFactory($this->getHelpCommandClass())
+			->setFactory(HelpCommand::class)
 			->setAutowired(false);
 
 		// Jobs
@@ -108,51 +103,6 @@ class ExecutorExtension extends CompilerExtension
 
 			$executorDefinition->addSetup('add', [$jobDefinition, $jobName]);
 		}
-	}
-
-	protected function getPrimaryServiceName(): string
-	{
-		return 'executor';
-	}
-
-	protected function getSecondaryServiceName(): ?string
-	{
-		return 'scheduler';
-	}
-
-	protected function getExecutorServiceType(): string
-	{
-		return $this->getExecutorClass();
-	}
-
-	protected function getExecutorClass(): string
-	{
-		return Executor::class;
-	}
-
-	protected function getLockingExecutorClass(): string
-	{
-		return LockingExecutor::class;
-	}
-
-	protected function getRunCommandClass(): string
-	{
-		return RunCommand::class;
-	}
-
-	protected function getForceRunCommandClass(): string
-	{
-		return ForceRunCommand::class;
-	}
-
-	protected function getListCommandClass(): string
-	{
-		return ListCommand::class;
-	}
-
-	protected function getHelpCommandClass(): string
-	{
-		return HelpCommand::class;
 	}
 
 }

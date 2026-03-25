@@ -3,11 +3,10 @@
 namespace Contributte\Executor;
 
 use Contributte\Executor\Helpers\Debugger;
-use Contributte\Scheduler\IScheduler;
 use DateTime;
 use Throwable;
 
-class Executor implements IExecutor, IScheduler
+class Executor implements IExecutor
 {
 
 	/** @var IJob[] */

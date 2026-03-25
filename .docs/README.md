@@ -169,5 +169,3 @@ After that you can fire one of these commands.
 | executor:list | List all jobs.		|
 | executor:run  | Run all due jobs.	|
 | executor:force-run  | Force run selected executor job.	|
-
-The previous `Contributte\Scheduler` namespace, `scheduler:` extension alias, and `scheduler:*` commands remain available as deprecated compatibility aliases for the transition release.

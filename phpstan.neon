@@ -6,13 +6,11 @@ parameters:
 	phpVersion: 80200
 
 	scanDirectories:
-		- compat
 		- src
 
 	fileExtensions:
 		- php
 
 	paths:
-		- compat
 		- src
 		- .docs
