@@ -2,8 +2,8 @@
 
 namespace Tests\Cases\DI;
 
-use Contributte\Scheduler\DI\SchedulerExtension;
-use Contributte\Scheduler\IScheduler;
+use Contributte\Executor\DI\ExecutorExtension;
+use Contributte\Executor\IExecutor;
 use Contributte\Tester\Toolkit;
 use Contributte\Tester\Utils\ContainerBuilder;
 use Contributte\Tester\Utils\Neonkit;
@@ -14,17 +14,16 @@ use Tests\Fixtures\InjectableJob;
 
 require_once __DIR__ . '/../../bootstrap.php';
 
-// Custom parse case
 Toolkit::test(function (): void {
 	$container = ContainerBuilder::of()
 		->withCompiler(function (Compiler $compiler): void {
-			$compiler->addExtension('scheduler', new SchedulerExtension());
+			$compiler->addExtension('executor', new ExecutorExtension());
 			$compiler->addConfig(Neonkit::load(<<<'NEON'
 			services:
 				callbackJob: Tests\Fixtures\CallbackJob
 				scheduledJob: Tests\Fixtures\CustomJob
 
-			scheduler:
+			executor:
 				jobs:
 					- {cron: '* * * * *', callback: Tests\Fixtures\CallbackJob::foo}
 					- {cron: '* * * * *', callback: [@callbackJob, bar]}
@@ -34,51 +33,49 @@ Toolkit::test(function (): void {
 			));
 		})->build();
 
-	$scheduler = $container->getByType(IScheduler::class);
-	Assert::type(IScheduler::class, $scheduler);
-	Assert::count(4, $scheduler->getAll());
+	$executor = $container->getByType(IExecutor::class);
+	Assert::type(IExecutor::class, $executor);
+	Assert::count(4, $executor->getAll());
 });
 
-// Test job with class config
 Toolkit::test(function (): void {
 	$container = ContainerBuilder::of()
 		->withCompiler(function (Compiler $compiler): void {
-			$compiler->addExtension('scheduler', new SchedulerExtension());
+			$compiler->addExtension('executor', new ExecutorExtension());
 			$compiler->addConfig(Neonkit::load(<<<'NEON'
-			scheduler:
+			executor:
 				jobs:
 					myJob: {class: Tests\Fixtures\CustomJob}
 			NEON
 			));
 		})->build();
 
-	$scheduler = $container->getByType(IScheduler::class);
-	Assert::type(IScheduler::class, $scheduler);
-	Assert::count(1, $scheduler->getAll());
+	$executor = $container->getByType(IExecutor::class);
+	Assert::type(IExecutor::class, $executor);
+	Assert::count(1, $executor->getAll());
 });
 
-// Test job with inject: true
 Toolkit::test(function (): void {
 	$container = ContainerBuilder::of()
 		->withCompiler(function (Compiler $compiler): void {
-			$compiler->addExtension('scheduler', new SchedulerExtension());
+			$compiler->addExtension('executor', new ExecutorExtension());
 			$compiler->addExtension('inject', new InjectExtension());
 			$compiler->addConfig(Neonkit::load(<<<'NEON'
 			services:
 				dependency: Tests\Fixtures\SomeDependency
 
-			scheduler:
+			executor:
 				jobs:
 					injectableJob: {class: Tests\Fixtures\InjectableJob, inject: true}
 			NEON
 			));
 		})->build();
 
-	$scheduler = $container->getByType(IScheduler::class);
-	Assert::type(IScheduler::class, $scheduler);
-	Assert::count(1, $scheduler->getAll());
+	$executor = $container->getByType(IExecutor::class);
+	Assert::type(IExecutor::class, $executor);
+	Assert::count(1, $executor->getAll());
 
-	$jobs = $scheduler->getAll();
+	$jobs = $executor->getAll();
 	$job = reset($jobs);
 	Assert::type(InjectableJob::class, $job);
 	Assert::notNull($job->getDependency());

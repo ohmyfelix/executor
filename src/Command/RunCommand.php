@@ -1,32 +1,32 @@
 <?php declare(strict_types = 1);
 
-namespace Contributte\Scheduler\Command;
+namespace Contributte\Executor\Command;
 
-use Contributte\Scheduler\IScheduler;
+use Contributte\Executor\IExecutor;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
-	name: 'scheduler:run',
-	description: 'Run scheduler jobs'
+	name: 'executor:run',
+	description: 'Run executor jobs'
 )]
 class RunCommand extends Command
 {
 
-	private IScheduler $scheduler;
+	private IExecutor $executor;
 
-	public function __construct(IScheduler $scheduler)
+	public function __construct(IExecutor $executor)
 	{
 		parent::__construct();
 
-		$this->scheduler = $scheduler;
+		$this->executor = $executor;
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->scheduler->run();
+		$this->executor->run();
 
 		return Command::SUCCESS;
 	}

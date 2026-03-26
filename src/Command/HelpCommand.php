@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Contributte\Scheduler\Command;
+namespace Contributte\Executor\Command;
 
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
-	name: 'scheduler:help',
+	name: 'executor:help',
 	description: 'Print cron syntax'
 )]
 class HelpCommand extends Command

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Contributte\Scheduler;
+namespace Contributte\Executor;
 
 use Cron\CronExpression;
 use DateTime;

@@ -7,7 +7,7 @@
 	<rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
 		<properties>
 			<property name="rootNamespaces" type="array">
-				<element key="src" value="Contributte\Scheduler"/>
+				<element key="src" value="Contributte\Executor"/>
 				<element key="tests" value="Tests"/>
 			</property>
 		</properties>

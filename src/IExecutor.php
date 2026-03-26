@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace Contributte\Scheduler;
+namespace Contributte\Executor;
 
-interface IScheduler
+interface IExecutor
 {
 
 	public function run(): void;

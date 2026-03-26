@@ -1,14 +1,14 @@
-![](https://heatbadger.now.sh/github/readme/contributte/scheduler/)
+![](https://heatbadger.now.sh/github/readme/contributte/executor/)
 
 <p align=center>
-  <a href="https://github.com/contributte/scheduler/actions"><img src="https://badgen.net/github/checks/contributte/scheduler/master"></a>
-  <a href="https://codecov.io/gh/contributte/scheduler"><img src="https://badgen.net/codecov/c/github/contributte/scheduler"></a>
-  <a href="https://packagist.org/packages/contributte/scheduler"><img src="https://badgen.net/packagist/dm/contributte/scheduler"></a>
-  <a href="https://packagist.org/packages/contributte/scheduler"><img src="https://badgen.net/packagist/v/contributte/scheduler"></a>
+  <a href="https://github.com/contributte/executor/actions"><img src="https://badgen.net/github/checks/contributte/executor/master"></a>
+  <a href="https://codecov.io/gh/contributte/executor"><img src="https://badgen.net/codecov/c/github/contributte/executor"></a>
+  <a href="https://packagist.org/packages/contributte/executor"><img src="https://badgen.net/packagist/dm/contributte/executor"></a>
+  <a href="https://packagist.org/packages/contributte/executor"><img src="https://badgen.net/packagist/v/contributte/executor"></a>
 </p>
 <p align=center>
-  <a href="https://packagist.org/packages/contributte/scheduler"><img src="https://badgen.net/packagist/php/contributte/scheduler"></a>
-  <a href="https://github.com/contributte/scheduler"><img src="https://badgen.net/github/license/contributte/scheduler"></a>
+  <a href="https://packagist.org/packages/contributte/executor"><img src="https://badgen.net/packagist/php/contributte/executor"></a>
+  <a href="https://github.com/contributte/executor"><img src="https://badgen.net/github/license/contributte/executor"></a>
   <a href="https://bit.ly/ctteg"><img src="https://badgen.net/badge/support/gitter/cyan"></a>
   <a href="https://bit.ly/cttfo"><img src="https://badgen.net/badge/support/forum/yellow"></a>
   <a href="https://contributte.org/partners.html"><img src="https://badgen.net/badge/sponsor/donations/F96854"></a>
@@ -20,10 +20,10 @@ Website ðŸš€ <a href="https://contributte.org">contributte.org</a> | Contact ðŸ‘
 
 ## Usage
 
-To install latest version of `contributte/scheduler` use [Composer](https://getcomposer.org).
+To install latest version of `contributte/executor` use [Composer](https://getcomposer.org).
 
 ```bash
-composer require contributte/scheduler
+composer require contributte/executor
 ```
 
 ## Documentation

@@ -1,4 +1,4 @@
-# Contributte Scheduler
+# Contributte Executor
 
 Executing php callbacks using cron expression.
 
@@ -14,29 +14,29 @@ Executing php callbacks using cron expression.
 Require package
 
 ```bash
-composer require contributte/scheduler
+composer require contributte/executor
 ```
 
 Register extension
 
 ```neon
 extensions:
-	scheduler: Contributte\Scheduler\DI\SchedulerExtension
+	executor: Contributte\Executor\DI\ExecutorExtension
 ```
 
 ## Configuration
 
-Set-up crontab. Use the `scheduler:run` command.
+Set-up crontab. Use the `executor:run` command.
 
 ```
-* * * * * php path-to-project/console scheduler:run
+* * * * * php path-to-project/console executor:run
 ```
 
 Optionally, you can set a temp path for storing lock files.
 
 ```neon
-scheduler:
-	path: '%tempDir%/scheduler'
+executor:
+	path: '%tempDir%/executor'
 ```
 
 ## Jobs
@@ -48,13 +48,13 @@ This package defines 2 types of jobs:
 
 ### Callback job
 
-Register your callbacks under `scheduler.jobs` key.
+Register your callbacks under `executor.jobs` key.
 
 ```neon
 services:
 	stats: App\Model\Stats
 
-scheduler:
+executor:
 	jobs:
 		# stats must be registered as service and have method calculate
 		- { cron: '* * * * *', callback: [ @stats, calculate ] }
@@ -83,7 +83,7 @@ using [crontab.guru](https://crontab.guru).
 Create new class which implements `IJob` interface.
 
 ```php
-use Contributte\Scheduler\IJob;
+use Contributte\Executor\IJob;
 
 class ScheduledJob implements IJob
 {
@@ -118,7 +118,7 @@ Register your class into `config.neon` as regular services
 into [nette dependency-injection container](https://doc.nette.org/en/3.0/dependency-injection).
 
 ```neon
-scheduler:
+executor:
 	jobs:
 		- App\Model\ScheduledJob
 		- App\Model\OtherScheduledJob
@@ -130,7 +130,7 @@ You can also reference already registered service.
 services:
 	scheduledJob: App\Model\ScheduledJob
 
-scheduler:
+executor:
 	jobs:
 		- @scheduledJob
 ```
@@ -140,7 +140,7 @@ scheduler:
 If your job class uses `inject*` methods for dependency injection, you can enable auto-injection using the `inject` option:
 
 ```neon
-scheduler:
+executor:
 	jobs:
 		myJob: {class: App\Model\ScheduledJob, inject: true}
 ```
@@ -165,7 +165,7 @@ After that you can fire one of these commands.
 
 | Command		| Info					|
 |----------------|--------------------	|
-| scheduler:help | Print cron syntax.	|
-| scheduler:list | List all jobs.		|
-| scheduler:run  | Run all due jobs.	|
-| scheduler:force-run  | Force run selected scheduler job.	|
+| executor:help | Print cron syntax.	|
+| executor:list | List all jobs.		|
+| executor:run  | Run all due jobs.	|
+| executor:force-run  | Force run selected executor job.	|

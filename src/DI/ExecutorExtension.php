@@ -1,15 +1,15 @@
 <?php declare(strict_types = 1);
 
-namespace Contributte\Scheduler\DI;
+namespace Contributte\Executor\DI;
 
-use Contributte\Scheduler\CallbackJob;
-use Contributte\Scheduler\Command\ForceRunCommand;
-use Contributte\Scheduler\Command\HelpCommand;
-use Contributte\Scheduler\Command\ListCommand;
-use Contributte\Scheduler\Command\RunCommand;
-use Contributte\Scheduler\IScheduler;
-use Contributte\Scheduler\LockingScheduler;
-use Contributte\Scheduler\Scheduler;
+use Contributte\Executor\CallbackJob;
+use Contributte\Executor\Command\ForceRunCommand;
+use Contributte\Executor\Command\HelpCommand;
+use Contributte\Executor\Command\ListCommand;
+use Contributte\Executor\Command\RunCommand;
+use Contributte\Executor\Executor;
+use Contributte\Executor\IExecutor;
+use Contributte\Executor\LockingExecutor;
 use InvalidArgumentException;
 use Nette\DI\CompilerExtension;
 use Nette\DI\Definitions\Statement;
@@ -21,7 +21,7 @@ use stdClass;
 /**
  * @property-read stdClass $config
  */
-class SchedulerExtension extends CompilerExtension
+class ExecutorExtension extends CompilerExtension
 {
 
 	public function getConfigSchema(): Schema
@@ -39,16 +39,14 @@ class SchedulerExtension extends CompilerExtension
 		$builder = $this->getContainerBuilder();
 		$config = $this->config;
 
-		// Scheduler
-		$schedulerDefinition = $builder->addDefinition($this->prefix('scheduler'))
-			->setType(IScheduler::class);
+		$executorDefinition = $builder->addDefinition($this->prefix('executor'))
+			->setType(IExecutor::class);
 		if ($config->path !== null) {
-			$schedulerDefinition->setFactory(LockingScheduler::class, [$config->path]);
+			$executorDefinition->setFactory(LockingExecutor::class, [$config->path]);
 		} else {
-			$schedulerDefinition->setFactory(Scheduler::class);
+			$executorDefinition->setFactory(Executor::class);
 		}
 
-		// Commands
 		$builder->addDefinition($this->prefix('runCommand'))
 			->setFactory(RunCommand::class)
 			->setAutowired(false);
@@ -81,6 +79,9 @@ class SchedulerExtension extends CompilerExtension
 					}
 
 					$inject = $jobConfig['inject'] ?? false;
+					if (!is_bool($inject)) {
+						throw new InvalidArgumentException(sprintf('Option "inject" of %s > jobs > %s must be boolean', $this->name, $jobName));
+					}
 
 					$jobDefinition = $builder->addDefinition($this->prefix('job.' . $jobName))
 						->setFactory($class)
@@ -100,7 +101,7 @@ class SchedulerExtension extends CompilerExtension
 				throw new InvalidArgumentException(sprintf('Job %s > jobs > %s must be a string or array', $this->name, $jobName));
 			}
 
-			$schedulerDefinition->addSetup('add', [$jobDefinition, $jobName]);
+			$executorDefinition->addSetup('add', [$jobDefinition, $jobName]);
 		}
 	}
 
